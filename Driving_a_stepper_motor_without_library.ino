@@ -9,7 +9,8 @@
  */
 
 #include<LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE); 
+LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE); //LCD display is set up for debugging and feedback purpose
+
 
 #define in1 2 //A+ 
 #define in2 3 //A-
@@ -120,6 +121,8 @@ void setup() {
   pinMode(in3, OUTPUT); 
   pinMode(in4, OUTPUT);
 
+
+//Turning all pins to low initially. 
     digitalWrite(in1, LOW); 
   digitalWrite(in2, LOW); 
 
@@ -135,12 +138,12 @@ void loop() {
   lcd.print(counter); 
   if(Serial.available() > 0)
   {
-    char command = Serial.read(); 
+    char command = Serial.read();   //Character f (wihtout any new line) drives the motor in forward direction for 5 steps. 
     if(command=='f')
     {
       stepForward(5, 10); //First parameter indicates the number of steps, second parameter indicates 
     }                     //the speed (the delay between switchings the phases of the motor)
-    else if(command == 'b')
+    else if(command == 'b')  //Character b(wihtout any new line) drives the motor in backward direction for 5 steps. 
     {
       stepBackward(5, 10); 
     }
